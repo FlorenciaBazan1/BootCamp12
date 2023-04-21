@@ -1,6 +1,6 @@
 package modelo;
 
-public class Calzado {
+public abstract class Calzado {
 
     private String diaVenta; //Semana o fin de semana
     private int numero;
@@ -39,5 +39,27 @@ public class Calzado {
         this.producto = producto;
     }
 
+    //metodo valor de venta
+    public int valorVenta (){
+        int valorVenta = 0;
 
+        if (this.diaVenta.equalsIgnoreCase("Semana")){
+
+            valorVenta = this.getProducto().getValorBase() - Math.round(this.getProducto().getValorBase()*15/100);
+
+        }else if (this.diaVenta.equalsIgnoreCase("Fin de semana")){
+
+            valorVenta = this.getProducto().getValorBase() + Math.round(this.getProducto().getValorBase()*24/100);
+        }
+
+        return valorVenta;
+    }
+
+    public int impuestoIva(){
+
+        return Math.round(this.valorVenta()*19/100);
+    }
+
+    //metodo valor a pagar, debe ser abstracto
+    public abstract int valorPagar ();
 }
